@@ -30,13 +30,19 @@ pipeline {
             }
         }
         stage('Deploy') {
-            steps {
-                script {
-                    dir('client') {
-                        bat 'npm start'
+            parallel {
+                stage('Deploy Client') {
+                    steps {
+                        dir('client') {
+                            bat 'npm start'
+                        }
                     }
-                    dir('server') {
-                        bat 'npm start'
+                }
+                stage('Deploy Server') {
+                    steps {
+                        dir('server') {
+                            bat 'npm start'
+                        }
                     }
                 }
             }
