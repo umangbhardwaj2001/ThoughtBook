@@ -32,14 +32,12 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    bat 'pm2 delete all || true'
                     dir('client') {
-                        bat 'pm2 start npm --name "client" -- start'
+                        bat 'npm start'
                     }
                     dir('server') {
-                        bat 'pm2 start npm --name "server" -- start'
+                        bat 'npm start'
                     }
-                    bat 'pm2 save'
                 }
             }
         }
